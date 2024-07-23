@@ -1,17 +1,8 @@
-/* Kurzbeschreibung nach:
-YouTube Video - Einstieg in Dart
-https://youtu.be/dKFPDf7QDGs?si=WJDCR4GPBoDqmLoU
-Der Link wurde von Thomas M. im Slack-Kanal geteilt.
-*/
-
-// Version 0.04
-
 void main() {
-  print("Dart - Grundlagen / Version 0.03");
-  print(""); //Visuelle Trennung
+  print("Dart - Grundlagen / Version 0.05");
+  print(""); // Visuelle Trennung
 
 /*
-
 Tastatur Sonderzeichen
 
 opt + 5 -> [
@@ -33,7 +24,6 @@ cmd + a => Alles wählen
 cmd + c => Kopieren
 cmd + v => Einfügen
 cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umgewandelt
-
 */
 
 // Kommentar
@@ -43,9 +33,6 @@ cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umg
   print("-- Variablen und Datentypen --");
 
 // Variablen deklarieren und initialisieren
-  // Deklaration: int(Datentyp) zahl1(Bezeihner)
-  // Initialisierung:  =(Zuweisungsoperator) 42(Wert)
-
   int zahl1 = 42;
   double kommazahl = 3.14;
   String name = "Dart";
@@ -56,7 +43,7 @@ cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umg
   ups = 10;
   var hi = "10";
 
-  /* var ist eine dynamic Variable mit Verbot, den Wert der Variable zu ändern, 
+  /* var ist eine dynamic Variable mit Verbot, den Wert der Variable zu ändern,
   indem eine Variable vom Typ var erstellt wird */
 
 // Variablen ausgeben
@@ -67,18 +54,14 @@ cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umg
   print(ups);
 
 // Variable ändern
-
-  /* Es sollte kein Datentyp angegeben werden, der zu deklarieren ist,
-  wenn dies bereits oben geschehen ist. */
-
   zahl1 = 43;
   kommazahl = 3.55;
   name = "Python";
   isLampOn = false;
 
-// Geanderte Variablen ausgeben
-  print("---"); //Visuelle Trennung
-  print("Geanderte Variablen ausgeben");
+// Geänderte Variablen ausgeben
+  print("---"); // Visuelle Trennung
+  print("Geänderte Variablen ausgeben");
   print("Die Zahl ist: ${zahl1}");
   print("Die Programmiersprache ist: ${name}");
   print("Die Kommazahl ist: ${kommazahl}");
@@ -90,147 +73,106 @@ cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umg
   int y = 30;
   z = x + y;
 
-  print(z);
   print("x + y = ${z}"); // z.B.
-  print("Operationen mit Variablen");
-  print(z.runtimeType); //Bonus Kommand
-  print("Der Datentyp von z ist: ${z.runtimeType}"); //Bonus Kommand
+  print("Der Datentyp von z ist: ${z.runtimeType}"); // Bonus Kommand
 
-// Aritmetische Operatoren:
+// Arithmetische Operatoren:
   int a = 8;
   int b = 5;
-  print("---"); //Visuelle Trennung
-  print("Aritmetische Operatoren");
-  print(a + b);
-  print(a - b);
-  print(a * b);
-  print(a / b);
-  print(a ~/ b); // Division - Wie oft b in a angewendet wird
-  print(a % b); // Modulo - Rest nach der Teilung
+  print("---"); // Visuelle Trennung
+  print("Arithmetische Operatoren");
+  print("a + b = ${a + b}");
+  print("a - b = ${a - b}");
+  print("a * b = ${a * b}");
+  print("a / b = ${a / b}");
+  print("a ~/ b = ${a ~/ b}"); // Division - Wie oft b in a angewendet wird
+  print("a % b = ${a % b}"); // Modulo - Rest nach der Teilung
 
-  /* 
-    print(a/b); In diesem Fall wandelt der Dart-Compiler 
-    die int-Variable automatisch in eine double-Variable um.
-    */
-
-  // Inkrement
-
-  /* 
-    Das Inkrement ist ein Operator, der eine Variable um eins erhöht
-    Es wird mit ++ gekennzeichnet
-    */
-
+// Inkrement
   int alter = 10;
 
-  // Post Inkrement
-  print("---"); //Visuelle Trennung
+  // Post-Inkrement
+  print("---"); // Visuelle Trennung
   print("Inkrement");
-  print(alter++); // =10
-  //Plus eins wird nach dem Alter addiert,
-  //so dass das Programm nur das Alter berechnet
+  print("Post-Inkrement: ${alter++}"); // =10
+  print("Nach Post-Inkrement: ${alter}"); // =11
 
-  // Pre Inkrement
-
-  print(++alter); // =12 weil es rechnet auch alter++ von oben 11+1
-  // Plus eins wird vor dem Alter addiert,
-  //so dass das Programm das Alter berechnet
+  // Pre-Inkrement
+  print("Pre-Inkrement: ${++alter}"); // =12
 
   // Beispiel
   int a1 = 2;
   int a2 = a1++;
   int a3 = ++a1;
 
-  print("---"); //Visuelle Trennung
-  print(a1); // = 4
-  print(a2); // = 2
-  print(a3); // = 4
-  print(++a3); // = 5
-  print(a2++); // = 2
+  print("---"); // Visuelle Trennung
+  print("a1: ${a1}"); // = 4
+  print("a2: ${a2}"); // = 2
+  print("a3: ${a3}"); // = 4
+  print("++a3: ${++a3}"); // = 5
+  print("a2++: ${a2++}"); // = 2
 
 // Vergleichsoperatoren
-
   int gewicht1 = 7;
   int gewicht2 = 9;
 
-  print("---"); //Visuelle Trennung
+  print("---"); // Visuelle Trennung
   print("Vergleichsoperatoren");
-  print(gewicht1 == gewicht2); // false
-  print(gewicht1 != gewicht2); // true
-  print(gewicht1 > gewicht2); // false
-  print(gewicht1 < gewicht2); // true
-  print(gewicht1 >= gewicht2); // false
-  print(gewicht1 <= gewicht2); // true
+  print("gewicht1 == gewicht2: ${gewicht1 == gewicht2}"); // false
+  print("gewicht1 != gewicht2: ${gewicht1 != gewicht2}"); // true
+  print("gewicht1 > gewicht2: ${gewicht1 > gewicht2}"); // false
+  print("gewicht1 < gewicht2: ${gewicht1 < gewicht2}"); // true
+  print("gewicht1 >= gewicht2: ${gewicht1 >= gewicht2}"); // false
+  print("gewicht1 <= gewicht2: ${gewicht1 <= gewicht2}"); // true
 
 // Logische Operatoren
-
   bool tag = true;
   bool nacht = false;
 
-  print("---"); //Visuelle Trennung
+  print("---"); // Visuelle Trennung
   print("Logische Operatoren");
-  print(tag && nacht); // Logisches UND &&
-  print(tag || nacht); // Logisches ODER ||
-  print(!(tag || nacht)); // Logisches Negationsoperator
+  print("tag && nacht: ${tag && nacht}"); // Logisches UND &&
+  print("tag || nacht: ${tag || nacht}"); // Logisches ODER ||
+  print("!(tag || nacht): ${!(tag || nacht)}"); // Logisches Negationsoperator
 
 // Komplexe Datentypen
-
   // Listen
   print("-- Listen --");
 
   List list = [1, true, 2, 3.14, "vier", "Apfel"];
 
-  print("Listen");
-  print(list); // Zeigt die gesamte Liste an
-  print(list[5]); // Zeigt einen ausgewählten Element an
+  print("Liste: ${list}"); // Zeigt die gesamte Liste an
+  print("Element an Index 5: ${list[5]}"); // Zeigt ein ausgewähltes Element an
 
-  // Listen Manipulation
-
-  print("---"); //Visuelle Trennung
-  print("Listen Manipulation");
+  // Listen-Manipulation
+  print("---"); // Visuelle Trennung
+  print("Listen-Manipulation");
   list[5] = "Banane"; // Änderung des Elementnamens von "Apfel"
-  print(list[5]); // Überprüfung des neuen Elementnamens
-  list.add("Kiwi"); //Ein Element hinzufügen
-  print(list); // Überprüfung der Änderung
-  print(list[3].runtimeType); // Überprüfung Datentyp
+  print("Geändertes Element an Index 5: ${list[5]}");
+  list.add("Kiwi"); // Ein Element hinzufügen
+  print("Liste nach Hinzufügen eines Elements: ${list}");
   list.remove("vier"); // Löschen eines Elements
-  print(list); // Überprüfung der Änderung
-  print(list.length); // Zeigt die Anzahl der Elemente in der Liste an
-  var fest = list[1];
-  /* Neue Variable mit Verbot, den Wert der Variable zu ändern, 
-  indem eine Variable vom Typ var erstellt wird
-  */
+  print("Liste nach Löschen eines Elements: ${list}");
+  print("Länge der Liste: ${list.length}"); // Anzahl der Elemente in der Liste
+
   List listA = ["sieben", !false]; // Neue Liste
   List listB = list + listA;
+  print("Verbundene Listen: ${listB}");
 
-  print(listB); // Überprüfung
-
-  /* Standardmäßig können Listen alle Arten von Variablen enthalten (dynamic).
-  Wenn die Liste Variablen eines bestimmten Typs enthalten soll, 
-  gehen wir wie folgt vor.
-  */
-
-  // Beispiel
-
+  // Listen mit bestimmten Typen
   List<int> listC = [1, 2, 3, 4, 5, 11, 1717];
   List<String> listD = ["Hallo", "Dart"];
   List<bool> listE = [true, false, !false, !true];
+
+  print("Liste vom Typ int: ${listC}");
+  print("Liste vom Typ String: ${listD}");
+  print("Liste vom Typ bool: ${listE}");
 
   // Maps
   print("-- Maps --");
 
   Map preiseA = {"Orange": 0.59, "Tomate": 0.29, "Kartoffeln": 1.79};
-
-  print(preiseA);
-
-  // Hint
-
-  /*
-  Wenn Sie ein Komma vor die zweite geschweifte Klammer setzen, 
-  ändert sich die Kartenansicht nach dem Speichern mit cmd+s 
-  von horizontal zu vertikal. Dies ist nur eine optische Veränderung.
-  */
-
-  // Beispiel
+  print("Map preiseA: ${preiseA}");
 
   Map preise = {
     "Apfel": 0.99,
@@ -238,24 +180,20 @@ cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umg
     "Orange": 0.79,
     "Avocado": 1.99,
   };
-
-  print(preise); // Überprüfung
+  print("Map preise: ${preise}");
 
   // Aktionen mit Maps
-
-  print("---"); //Visuelle Trennung
-  print(preise["Apfel"]);
-  // oder
+  print("---"); // Visuelle Trennung
+  print("Preis von Apfel: ${preise["Apfel"]}");
   double apfelPreis = preise["Apfel"];
-  print(apfelPreis);
+  print("Apfelpreis: ${apfelPreis}");
 
   // Änderung des Wertes der Elemente
-  preise["Banane"] = 2.49; // Änderung des Wertes der Elemente
+  preise["Banane"] = 2.49;
   double bananePreis = preise["Banane"];
-  print("---"); //Visuelle Trennung
-  print("Die neue Preise von Banane ist $bananePreis Euro."); // Überprüfung
+  print("Die neue Preise von Banane ist $bananePreis Euro.");
 
-// If-Else
+  // If-Else
   print("-- If-Else --");
 
   // Die Grundstruktur sieht wie folgt aus:
@@ -267,25 +205,24 @@ cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umg
     print("Fernsehr gucken.");
   }
 
-  print("---"); //Visuelle Trennung
+  print("---"); // Visuelle Trennung
 
-  // Variant 2 - Prüfungen in der Schule
-  int note = 97; // Hier kann man noten ändfern
+  // Variante 2 - Prüfungen in der Schule
+  int note = 97; // Hier kann man Noten ändern
 
   if (note >= 90) {
     print("Sehr gut!");
   } else if (note >= 80) {
     print("Gut");
   } else if (note >= 70) {
-    print("Befriedigenf");
+    print("Befriedigend");
   } else if (note >= 60) {
     print("Ausreichend");
   } else {
     print("Mangelhaft");
   }
 
-  // Variant 3 - Prüfungen in der Schule mit Logische Operatopren
-
+  // Variante 3 - Prüfungen in der Schule mit logischen Operatoren
   if (note >= 90 && note <= 100) {
     print("Sehr gut!");
   } else if (note >= 80 && note < 90) {
@@ -295,29 +232,94 @@ cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umg
   } else if (note >= 60 && note < 70) {
     print("Ausreichend");
   } else {
-    print("Mangelchaft");
+    print("Mangelhaft");
   }
 
-  // Variant 4 - Wetter
+  // Variante 4 - Wetter
   bool kaltesWetter = true;
   bool guteVerkehrslage = false;
 
-  if (guteVerkehrslage == true && kaltesWetter == false) {
+  if (guteVerkehrslage && !kaltesWetter) {
     print("Ich fahre zur Arbeit");
   } else {
     print("Homeoffice!");
-  }
 
-// Schleife
+// Schleifen
 
-  // For-Schleife
+    // For-Schleife
+    print("-- For-Schleife --");
+    for (int i = 0; i < 5; i++) {
+      print("Zähler: ${i}");
+    }
 
-  // For-in-Schleife
+    // For-in-Schleife
+    print("-- For-in-Schleife --");
+    List<int> zahlen = [1, 2, 3, 4, 5];
+    for (int zahl in zahlen) {
+      print("Zahl: ${zahl}");
+    }
 
-  // While-Schleife
+    // While-Schleife
+    print("-- While-Schleife --");
+    int counter = 0;
+    while (counter < 5) {
+      print("Counter: ${counter}");
+      counter++;
+    }
 
 // Funktionen
+    print("-- Funktionen --");
+    int addiere(int a, int b) {
+      return a + b;
+    }
+
+    print("3 + 5 = ${addiere(3, 5)}");
+
+    // Anonyme Funktionen
+    print("-- Anonyme Funktionen --");
+    var quadrat = (int num) => num * num;
+    print("Das Quadrat von 4 ist ${quadrat(4)}");
 
 // Klassen
-// Objekorientierte Programmierung
+
+    print("-- Klassen --");
+
+    /*
+
+  class Person {
+    String name;
+    int alter;
+
+    Person(this.name, this.alter);
+
+    void vorstellen() {
+      print("Hallo, ich heiße ${name} und bin ${alter} Jahre alt.");
+    }
+  }
+
+  Person person = Person("Anna", 25);
+  person.vorstellen();
+
+ ///Objektorientierte Programmierung
+
+  print("-- Objektorientierte Programmierung --");
+
+  class Fahrzeug {
+    String marke;
+    int baujahr;
+
+    Fahrzeug(this.marke, this.baujahr);
+
+    void anzeigen() {
+      print("Fahrzeug: Marke ${marke}, Baujahr ${baujahr}");
+    }
+  }
+
+  Fahrzeug auto = Fahrzeug("BMW", 2019);
+  auto.anzeigen();
+}
+
+
+*/
+  }
 }
