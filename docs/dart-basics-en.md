@@ -1,6 +1,6 @@
 # Dart language reference
 
-[Deutsch](dart-grundlagen-de.md) · [Български](dart-osnovi-bg.md) · [Executable German example](../Dart-Grundlagen.dart)
+[Deutsch](dart-grundlagen-de.md) · [Български](dart-osnovi-bg.md) · [Executable English example](../Dart-Basics.dart)
 
 This is a practical reference for modern Dart 3. It covers the language features
 used most often in command-line, server, and Flutter projects.
@@ -31,9 +31,9 @@ Check the installation and run the executable reference:
 
 ```sh
 dart --version
-dart format Dart-Grundlagen.dart
-dart analyze Dart-Grundlagen.dart
-dart run Dart-Grundlagen.dart
+dart format Dart-Basics.dart
+dart analyze Dart-Basics.dart
+dart run Dart-Basics.dart
 ```
 
 Create a console project and fetch its dependencies:

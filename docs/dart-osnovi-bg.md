@@ -1,6 +1,6 @@
 # Пълен практически справочник за Dart
 
-[Deutsch](dart-grundlagen-de.md) · [English](dart-basics-en.md) · [Изпълним пример на немски](../Dart-Grundlagen.dart)
+[Deutsch](dart-grundlagen-de.md) · [English](dart-basics-en.md) · [Изпълним пример на български](../Dart-Osnovi.dart)
 
 Този справочник описва съвременния Dart 3 и обхваща езиковите възможности,
 които най-често се използват в конзолни, сървърни и Flutter проекти.
@@ -31,9 +31,9 @@
 
 ```sh
 dart --version
-dart format Dart-Grundlagen.dart
-dart analyze Dart-Grundlagen.dart
-dart run Dart-Grundlagen.dart
+dart format Dart-Osnovi.dart
+dart analyze Dart-Osnovi.dart
+dart run Dart-Osnovi.dart
 ```
 
 Създаване на конзолен проект и изтегляне на зависимостите:
