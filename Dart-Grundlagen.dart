@@ -1,325 +1,262 @@
-void main() {
-  print("Dart - Grundlagen / Version 0.05");
-  print(""); // Visuelle Trennung
+import 'dart:math' as math;
 
 /*
-Tastatur Sonderzeichen
+  Dart-Grundlagen / Dart Basics / Основи на Dart
 
-opt + 5 -> [
-opt + 6 -> ]
-opt + 7 -> | 
-opt + 8 -> {
-opt + 9 -> }
-Shift + 4 -> $
-Shift + 5 -> %
-Shift + 6 -> &
-Shift + 7 -> / 
-Shift + opt + 7 -> \
-opt + n -> ~
-
-Wichtige Tastenkombinationen
-
-cmd + s => Dokument speichern
-cmd + a => Alles wählen
-cmd + c => Kopieren
-cmd + v => Einfügen
-cmd + Shift + 7 => Der mit dem Cursor markierte Text wird in einen Kommentar umgewandelt
+  DE: Kurze, ausführbare Referenz. Mehr Erklärungen stehen in docs/.
+  EN: Short, executable reference. More explanations are in docs/.
+  BG: Кратък, изпълним справочник. Повече обяснения има в docs/.
 */
 
-// Kommentar
-/* Block Kommentar */
+Future<void> main() async {
+  _section('Variablen und Typen', 'Variables and types', 'Променливи и типове');
 
-// Variablen und Datentypen
-  print("-- Variablen und Datentypen --");
+  int answer = 42;
+  double pi = 3.14;
+  String language = 'Dart';
+  bool isReady = true;
+  var inferred =
+      'String'; // var ermittelt den Typ / infers the type / извежда типа
+  dynamic flexible = 'Text';
+  flexible =
+      10; // dynamic kann den Typ wechseln / can change type / може да сменя типа
+  final currentYear = DateTime.now().year; // einmal / once / веднъж
+  const secondsPerMinute = 60; // Compilezeit / compile time / при компилация
+  String? nickname; // null ist erlaubt / null is allowed / null е разрешен
 
-// Variablen deklarieren und initialisieren
-  int zahl1 = 42;
-  double kommazahl = 3.14;
-  String name = "Dart";
-  bool isLampOn = true;
-  dynamic ups = "Ups";
-  // Eine Variable vom Typ dynamic kann Werte verschiedener Datentypen enthalten
-  print(ups);
-  ups = 10;
-  var hi = "10";
+  print('$answer, $pi, $language, $isReady, $inferred, $flexible');
+  print('$currentYear, $secondsPerMinute, ${nickname ?? 'Guest'}');
 
-  /* var ist eine dynamic Variable mit Verbot, den Wert der Variable zu ändern,
-  indem eine Variable vom Typ var erstellt wird */
+  answer = 43;
+  pi = 3.14159;
+  language = 'Dart 3';
+  isReady = false;
+  inferred = 'still a String';
+  print('$answer, $pi, $language, $isReady, $inferred');
 
-// Variablen ausgeben
-  print("Die Zahl ist ${zahl1}");
-  print("Die Programmierschprache ist ${name}");
-  print("Die Kommazahl ist ${kommazahl}");
-  print("Die Lampe ist an? ${isLampOn}");
-  print(ups);
+  _section(
+    'Operatoren und Kontrollfluss',
+    'Operators and control flow',
+    'Оператори и управление на потока',
+  );
 
-// Variable ändern
-  zahl1 = 43;
-  kommazahl = 3.55;
-  name = "Python";
-  isLampOn = false;
+  const a = 8;
+  const b = 5;
+  print('+ ${a + b}, - ${a - b}, * ${a * b}, / ${a / b}');
+  print('~/ ${a ~/ b}, % ${a % b}');
+  print('== ${a == b}, != ${a != b}, > ${a > b}');
+  print('&& ${a > 0 && b > 0}, || ${a == 0 || b > 0}, ! ${!(a == b)}');
+  print(_weatherAdvice(24));
+  print(_grade(92));
 
-// Geänderte Variablen ausgeben
-  print("---"); // Visuelle Trennung
-  print("Geänderte Variablen ausgeben");
-  print("Die Zahl ist: ${zahl1}");
-  print("Die Programmiersprache ist: ${name}");
-  print("Die Kommazahl ist: ${kommazahl}");
-  print("Die Lampe ist an? ${isLampOn}");
+  _section(
+    'Strings und Umwandlung',
+    'Strings and conversion',
+    'Низове и преобразуване',
+  );
 
-// Beispiel für Operationen mit Variablen
-  int z;
-  int x = 20;
-  int y = 30;
-  z = x + y;
+  const firstName = 'Ada';
+  const lastName = 'Lovelace';
+  final fullName = '$firstName $lastName';
+  print('$fullName, ${fullName.length}, ${fullName.toUpperCase()}');
+  print(
+    '${int.parse('42')}, ${int.tryParse('x')}, ${math.pi.toStringAsFixed(2)}',
+  );
 
-  print("x + y = ${z}"); // z.B.
-  print("Der Datentyp von z ist: ${z.runtimeType}"); // Bonus Kommand
+  _section(
+    'Collections und Schleifen',
+    'Collections and loops',
+    'Колекции и цикли',
+  );
 
-// Arithmetische Operatoren:
-  int a = 8;
-  int b = 5;
-  print("---"); // Visuelle Trennung
-  print("Arithmetische Operatoren");
-  print("a + b = ${a + b}");
-  print("a - b = ${a - b}");
-  print("a * b = ${a * b}");
-  print("a / b = ${a / b}");
-  print("a ~/ b = ${a ~/ b}"); // Division - Wie oft b in a angewendet wird
-  print("a % b = ${a % b}"); // Modulo - Rest nach der Teilung
+  final numbers = <int>[1, 2, 3, 4, 5];
+  numbers.add(6);
+  final evenSquares = numbers
+      .where((number) => number.isEven)
+      .map((number) => number * number)
+      .toList();
+  final uniqueNumbers = <int>[1, 1, 2, 3].toSet();
+  final prices = <String, double>{'apple': 0.99, 'banana': 0.49};
+  prices['banana'] = 0.59;
+  final extended = <int>[0, ...numbers, if (numbers.isNotEmpty) 7];
 
-// Inkrement
-  int alter = 10;
-
-  // Post-Inkrement
-  print("---"); // Visuelle Trennung
-  print("Inkrement");
-  print("Post-Inkrement: ${alter++}"); // =10
-  print("Nach Post-Inkrement: ${alter}"); // =11
-
-  // Pre-Inkrement
-  print("Pre-Inkrement: ${++alter}"); // =12
-
-  // Beispiel
-  int a1 = 2;
-  int a2 = a1++;
-  int a3 = ++a1;
-
-  print("---"); // Visuelle Trennung
-  print("a1: ${a1}"); // = 4
-  print("a2: ${a2}"); // = 2
-  print("a3: ${a3}"); // = 4
-  print("++a3: ${++a3}"); // = 5
-  print("a2++: ${a2++}"); // = 2
-
-// Vergleichsoperatoren
-  int gewicht1 = 7;
-  int gewicht2 = 9;
-
-  print("---"); // Visuelle Trennung
-  print("Vergleichsoperatoren");
-  print("gewicht1 == gewicht2: ${gewicht1 == gewicht2}"); // false
-  print("gewicht1 != gewicht2: ${gewicht1 != gewicht2}"); // true
-  print("gewicht1 > gewicht2: ${gewicht1 > gewicht2}"); // false
-  print("gewicht1 < gewicht2: ${gewicht1 < gewicht2}"); // true
-  print("gewicht1 >= gewicht2: ${gewicht1 >= gewicht2}"); // false
-  print("gewicht1 <= gewicht2: ${gewicht1 <= gewicht2}"); // true
-
-// Logische Operatoren
-  bool tag = true;
-  bool nacht = false;
-
-  print("---"); // Visuelle Trennung
-  print("Logische Operatoren");
-  print("tag && nacht: ${tag && nacht}"); // Logisches UND &&
-  print("tag || nacht: ${tag || nacht}"); // Logisches ODER ||
-  print("!(tag || nacht): ${!(tag || nacht)}"); // Logisches Negationsoperator
-
-// Komplexe Datentypen
-  // Listen
-  print("-- Listen --");
-
-  List list = [1, true, 2, 3.14, "vier", "Apfel"];
-
-  print("Liste: ${list}"); // Zeigt die gesamte Liste an
-  print("Element an Index 5: ${list[5]}"); // Zeigt ein ausgewähltes Element an
-
-  // Listen-Manipulation
-  print("---"); // Visuelle Trennung
-  print("Listen-Manipulation");
-  list[5] = "Banane"; // Änderung des Elementnamens von "Apfel"
-  print("Geändertes Element an Index 5: ${list[5]}");
-  list.add("Kiwi"); // Ein Element hinzufügen
-  print("Liste nach Hinzufügen eines Elements: ${list}");
-  list.remove("vier"); // Löschen eines Elements
-  print("Liste nach Löschen eines Elements: ${list}");
-  print("Länge der Liste: ${list.length}"); // Anzahl der Elemente in der Liste
-
-  List listA = ["sieben", !false]; // Neue Liste
-  List listB = list + listA;
-  print("Verbundene Listen: ${listB}");
-
-  // Listen mit bestimmten Typen
-  List<int> listC = [1, 2, 3, 4, 5, 11, 1717];
-  List<String> listD = ["Hallo", "Dart"];
-  List<bool> listE = [true, false, !false, !true];
-
-  print("Liste vom Typ int: ${listC}");
-  print("Liste vom Typ String: ${listD}");
-  print("Liste vom Typ bool: ${listE}");
-
-  // Maps
-  print("-- Maps --");
-
-  Map preiseA = {"Orange": 0.59, "Tomate": 0.29, "Kartoffeln": 1.79};
-  print("Map preiseA: ${preiseA}");
-
-  Map preise = {
-    "Apfel": 0.99,
-    "Banane": 0.49,
-    "Orange": 0.79,
-    "Avocado": 1.99,
-  };
-  print("Map preise: ${preise}");
-
-  // Aktionen mit Maps
-  print("---"); // Visuelle Trennung
-  print("Preis von Apfel: ${preise["Apfel"]}");
-  double apfelPreis = preise["Apfel"];
-  print("Apfelpreis: ${apfelPreis}");
-
-  // Änderung des Wertes der Elemente
-  preise["Banane"] = 2.49;
-  double bananePreis = preise["Banane"];
-  print("Die neue Preise von Banane ist $bananePreis Euro.");
-
-  // If-Else
-  print("-- If-Else --");
-
-  // Die Grundstruktur sieht wie folgt aus:
-  String wetter = "sonnig"; // Wenn wir "sonnig" ändern, wird }else{ aktiviert
-
-  if (wetter == "sonnig") {
-    print("Es ist sonnig!");
-  } else {
-    print("Fernsehr gucken.");
+  print('$numbers | $evenSquares | $uniqueNumbers | $prices | $extended');
+  for (final number in numbers) {
+    if (number.isOdd) continue;
+    print(_tr('Gerade: $number', 'Even: $number', 'Четно: $number'));
   }
 
-  print("---"); // Visuelle Trennung
-
-  // Variante 2 - Prüfungen in der Schule
-  int note = 97; // Hier kann man Noten ändern
-
-  if (note >= 90) {
-    print("Sehr gut!");
-  } else if (note >= 80) {
-    print("Gut");
-  } else if (note >= 70) {
-    print("Befriedigend");
-  } else if (note >= 60) {
-    print("Ausreichend");
-  } else {
-    print("Mangelhaft");
+  var countdown = 3;
+  while (countdown > 0) {
+    print(countdown--);
   }
 
-  // Variante 3 - Prüfungen in der Schule mit logischen Operatoren
-  if (note >= 90 && note <= 100) {
-    print("Sehr gut!");
-  } else if (note >= 80 && note < 90) {
-    print("Gut");
-  } else if (note >= 70 && note < 80) {
-    print("Befriedigend");
-  } else if (note >= 60 && note < 70) {
-    print("Ausreichend");
-  } else {
-    print("Mangelhaft");
+  _section('Funktionen', 'Functions', 'Функции');
+
+  print('3 + 5 = ${add(3, 5)}');
+  print(greet('Anna'));
+  print(greet('Sam', salutation: 'Hello'));
+  print('VAT: ${grossPrice(100, vatRate: 0.19)}');
+  print('Generic: ${first<String>(['Dart', 'Flutter'])}');
+
+  _section(
+    'Records und Patterns',
+    'Records and patterns',
+    'Records и patterns',
+  );
+
+  final (userName, userAge) = createUser();
+  print('$userName, $userAge');
+  print(describePoint((x: 3, y: 3)));
+
+  final command = <String>['move', '10', '20'];
+  switch (command) {
+    case ['move', final x, final y]:
+      print('x=$x, y=$y');
+    default:
+      print(_tr('Unbekannter Befehl', 'Unknown command', 'Непозната команда'));
   }
 
-  // Variante 4 - Wetter
-  bool kaltesWetter = true;
-  bool guteVerkehrslage = false;
+  _section('Fehlerbehandlung', 'Error handling', 'Обработка на грешки');
 
-  if (guteVerkehrslage && !kaltesWetter) {
-    print("Ich fahre zur Arbeit");
-  } else {
-    print("Homeoffice!");
-
-// Schleifen
-
-    // For-Schleife
-    print("-- For-Schleife --");
-    for (int i = 0; i < 5; i++) {
-      print("Zähler: ${i}");
-    }
-
-    // For-in-Schleife
-    print("-- For-in-Schleife --");
-    List<int> zahlen = [1, 2, 3, 4, 5];
-    for (int zahl in zahlen) {
-      print("Zahl: ${zahl}");
-    }
-
-    // While-Schleife
-    print("-- While-Schleife --");
-    int counter = 0;
-    while (counter < 5) {
-      print("Counter: ${counter}");
-      counter++;
-    }
-
-// Funktionen
-    print("-- Funktionen --");
-    int addiere(int a, int b) {
-      return a + b;
-    }
-
-    print("3 + 5 = ${addiere(3, 5)}");
-
-    // Anonyme Funktionen
-    print("-- Anonyme Funktionen --");
-    var quadrat = (int num) => num * num;
-    print("Das Quadrat von 4 ist ${quadrat(4)}");
-
-// Klassen
-
-    print("-- Klassen --");
-
-    /*
-
-  class Person {
-    String name;
-    int alter;
-
-    Person(this.name, this.alter);
-
-    void vorstellen() {
-      print("Hallo, ich heiße ${name} und bin ${alter} Jahre alt.");
-    }
+  try {
+    print(int.parse('12x'));
+  } on FormatException catch (error) {
+    print(
+      _tr(
+        'Ungültige Zahl: ${error.source}',
+        'Invalid number: ${error.source}',
+        'Невалидно число: ${error.source}',
+      ),
+    );
+  } finally {
+    print(_tr('Versuch beendet', 'Attempt finished', 'Опитът приключи'));
   }
 
-  Person person = Person("Anna", 25);
-  person.vorstellen();
+  _section(
+    'Objektorientierung',
+    'Object-oriented programming',
+    'Обектно-ориентирано програмиране',
+  );
 
- ///Objektorientierte Programmierung
+  final person = Person(name: 'Anna', age: 25)..birthday();
+  final Shape circle = Circle(2);
+  final box = Box<String>('Dart');
+  print(person.introduction);
+  print('${circle.area.toStringAsFixed(2)}, ${box.value}');
+  print(TrafficLight.green.instruction);
 
-  print("-- Objektorientierte Programmierung --");
+  _section('Asynchronität', 'Asynchrony', 'Асинхронност');
 
-  class Fahrzeug {
-    String marke;
-    int baujahr;
-
-    Fahrzeug(this.marke, this.baujahr);
-
-    void anzeigen() {
-      print("Fahrzeug: Marke ${marke}, Baujahr ${baujahr}");
-    }
+  print(await loadMessage());
+  await for (final value in countStream(3)) {
+    print(_tr('Stream: $value', 'Stream: $value', 'Поток: $value'));
   }
-
-  Fahrzeug auto = Fahrzeug("BMW", 2019);
-  auto.anzeigen();
 }
 
+// DE: Positionsparameter und Kurzsyntax
+// EN: Positional parameters and arrow syntax
+// BG: Позиционни параметри и кратък синтаксис
+int add(int left, int right) => left + right;
 
-*/
+// DE: Benannter optionaler Parameter
+// EN: Named optional parameter
+// BG: Именуван незадължителен параметър
+String greet(String name, {String salutation = 'Hallo'}) {
+  return '$salutation, $name!';
+}
+
+double grossPrice(double netPrice, {required double vatRate}) {
+  return netPrice * (1 + vatRate);
+}
+
+T first<T>(List<T> values) => values.first;
+
+(String, int) createUser() => ('Ada', 36);
+
+String describePoint(({int x, int y}) point) => switch (point) {
+  (x: 0, y: 0) => _tr('Ursprung', 'Origin', 'Координатно начало'),
+  (x: final x, y: final y) when x == y => _tr(
+    'Diagonale',
+    'Diagonal',
+    'Диагонал',
+  ),
+  _ => _tr('Anderer Punkt', 'Other point', 'Друга точка'),
+};
+
+String _weatherAdvice(int temperature) {
+  if (temperature > 20) {
+    return _tr('T-Shirt-Wetter', 'T-shirt weather', 'Време за тениска');
   }
+  return _tr('Jacke mitnehmen', 'Take a jacket', 'Вземи яке');
+}
+
+String _grade(int score) => switch (score) {
+  >= 90 && <= 100 => _tr('Sehr gut', 'Excellent', 'Отличен'),
+  >= 60 && < 90 => _tr('Bestanden', 'Passed', 'Издържал'),
+  >= 0 && < 60 => _tr('Nicht bestanden', 'Failed', 'Неиздържал'),
+  _ => _tr('Ungültig', 'Invalid', 'Невалидно'),
+};
+
+class Person {
+  Person({required this.name, required this.age});
+
+  final String name;
+  int age;
+
+  void birthday() => age++;
+
+  String get introduction => _tr(
+    'Ich bin $name und $age Jahre alt.',
+    'I am $name and I am $age years old.',
+    'Аз съм $name и съм на $age години.',
+  );
+}
+
+abstract class Shape {
+  double get area;
+}
+
+class Circle extends Shape {
+  Circle(this.radius);
+
+  final double radius;
+
+  @override
+  double get area => math.pi * radius * radius;
+}
+
+class Box<T> {
+  Box(this.value);
+
+  final T value;
+}
+
+enum TrafficLight { red, yellow, green }
+
+extension TrafficLightInstruction on TrafficLight {
+  String get instruction => switch (this) {
+    TrafficLight.red => _tr('Stopp', 'Stop', 'Спри'),
+    TrafficLight.yellow => _tr('Warten', 'Wait', 'Изчакай'),
+    TrafficLight.green => _tr('Fahren', 'Go', 'Тръгни'),
+  };
+}
+
+Future<String> loadMessage() async {
+  await Future<void>.delayed(Duration.zero);
+  return _tr('Daten geladen', 'Data loaded', 'Данните са заредени');
+}
+
+Stream<int> countStream(int maximum) async* {
+  for (var value = 1; value <= maximum; value++) {
+    yield value;
+  }
+}
+
+String _tr(String german, String english, String bulgarian) {
+  return '$german | $english | $bulgarian';
+}
+
+void _section(String german, String english, String bulgarian) {
+  print('\n=== ${_tr(german, english, bulgarian)} ===');
 }
