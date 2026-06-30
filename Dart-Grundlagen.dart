@@ -1,224 +1,410 @@
+import 'dart:convert';
+import 'dart:isolate';
 import 'dart:math' as math;
 
 /*
-  Dart-Grundlagen / Dart Basics / Основи на Dart
+  DART-GRUNDLAGEN – AUSFÜHRBARES NACHSCHLAGEWERK
 
-  DE: Kurze, ausführbare Referenz. Mehr Erklärungen stehen in docs/.
-  EN: Short, executable reference. More explanations are in docs/.
-  BG: Кратък, изпълним справочник. Повече обяснения има в docs/.
+  Sonderzeichen auf einer deutschen macOS-Tastatur
+  -------------------------------------------------
+  ⌥ + 5             -> [
+  ⌥ + 6             -> ]
+  ⌥ + 7             -> |
+  ⌥ + 8             -> {
+  ⌥ + 9             -> }
+  ⇧ + 4             -> $
+  ⇧ + 5             -> %
+  ⇧ + 6             -> &
+  ⇧ + 7             -> /
+  ⇧ + ⌥ + 7         -> \
+  ⌥ + N, Leertaste  -> ~
+
+  Sonderzeichen auf einer deutschen Windows-Tastatur
+  --------------------------------------------------
+  AltGr + 7          -> {
+  AltGr + 8          -> [
+  AltGr + 9          -> ]
+  AltGr + 0          -> }
+  AltGr + <          -> |
+  AltGr + ß          -> \
+  AltGr + +          -> ~
+  ⇧ + 4              -> $
+  ⇧ + 5              -> %
+  ⇧ + 6              -> &
+  ⇧ + 7              -> /
+
+  Allgemeine Tastenkombinationen
+  -------------------------------
+  ⌘ + S             Dokument speichern
+  ⌘ + A             Alles auswählen
+  ⌘ + C / X / V     Kopieren / Ausschneiden / Einfügen
+  ⌘ + Z              Rückgängig
+  ⌘ + ⇧ + Z          Wiederholen
+  ⌘ + F              Im Dokument suchen
+  ⌘ + ⇧ + 7          Zeile(n) kommentieren (entspricht ⌘ + /)
+
+  Nützliche VS-Code-Tastenkombinationen
+  -------------------------------------
+  ⌘ + ⇧ + P          Befehlspalette öffnen
+  ⌘ + P              Datei schnell öffnen
+  ⌥ + ⇧ + F          Dokument formatieren
+  F5                 Debugging starten
+  ⇧ + F5             Debugging beenden
+  Ctrl + `           Terminal ein-/ausblenden
+
+  Allgemeine Windows-/Linux-Tastenkombinationen
+  ---------------------------------------------
+  Ctrl + S           Dokument speichern
+  Ctrl + A           Alles auswählen
+  Ctrl + C / X / V   Kopieren / Ausschneiden / Einfügen
+  Ctrl + Z            Rückgängig
+  Ctrl + Y            Wiederholen
+  Ctrl + F            Im Dokument suchen
+  Ctrl + /            Zeile(n) kommentieren
+                      (oft Ctrl + # auf deutscher Tastatur)
+
+  Nützliche VS-Code-Tastenkombinationen unter Windows/Linux
+  ---------------------------------------------------------
+  Ctrl + ⇧ + P       Befehlspalette öffnen
+  Ctrl + P           Datei schnell öffnen
+  ⇧ + Alt + F        Dokument formatieren
+  F5                 Debugging starten
+  ⇧ + F5             Debugging beenden
+  Ctrl + `           Terminal ein-/ausblenden
+
+  Kommentare
+  ----------
+  // Einzeiliger Kommentar
+  /* Mehrzeiliger Kommentar */
+  /// Dokumentationskommentar
 */
 
 Future<void> main() async {
-  _section('Variablen und Typen', 'Variables and types', 'Променливи и типове');
+  print('Dart-Grundlagen – vollständiger Überblick');
 
-  int answer = 42;
-  double pi = 3.14;
-  String language = 'Dart';
-  bool isReady = true;
-  var inferred =
-      'String'; // var ermittelt den Typ / infers the type / извежда типа
-  dynamic flexible = 'Text';
-  flexible =
-      10; // dynamic kann den Typ wechseln / can change type / може да сменя типа
-  final currentYear = DateTime.now().year; // einmal / once / веднъж
-  const secondsPerMinute = 60; // Compilezeit / compile time / при компилация
-  String? nickname; // null ist erlaubt / null is allowed / null е разрешен
+  _grundtypenUndVariablen();
+  _operatorenUndKontrollfluss();
+  _stringsUndKonvertierung();
+  _collectionsUndSchleifen();
+  _funktionenRecordsUndPatterns();
+  _fehlerbehandlung();
+  _objektorientierung();
+  await _asynchronitaetUndParallelitaet();
 
-  print('$answer, $pi, $language, $isReady, $inferred, $flexible');
-  print('$currentYear, $secondsPerMinute, ${nickname ?? 'Guest'}');
+  _abschnitt('Fertig');
+  print('Alle Beispiele wurden erfolgreich ausgeführt.');
+}
 
-  answer = 43;
-  pi = 3.14159;
-  language = 'Dart 3';
-  isReady = false;
-  inferred = 'still a String';
-  print('$answer, $pi, $language, $isReady, $inferred');
+void _grundtypenUndVariablen() {
+  _abschnitt('Variablen, Typen und Null-Sicherheit');
 
-  _section(
-    'Operatoren und Kontrollfluss',
-    'Operators and control flow',
-    'Оператори и управление на потока',
-  );
+  int ganzeZahl = 42;
+  double kommazahl = 3.14;
+  num beliebigeZahl = 7;
+  String sprache = 'Dart';
+  bool istBereit = true;
+
+  // var leitet den Typ einmalig ab. Danach bleibt die Variable ein String.
+  var abgeleiteterText = 'Hallo';
+  abgeleiteterText = 'Guten Tag';
+
+  // dynamic erlaubt wechselnde Typen, umgeht aber viele statische Prüfungen.
+  dynamic flexiblerWert = 'Text';
+  flexiblerWert = 10;
+
+  // final wird einmal zur Laufzeit gesetzt; const ist eine Compilezeitkonstante.
+  final aktuellesJahr = DateTime.now().year;
+  const sekundenProMinute = 60;
+
+  // Typen sind standardmäßig nicht-nullbar. ? erlaubt ausdrücklich null.
+  String? spitzname;
+  final anzeigename = spitzname ?? 'Gast';
+  spitzname ??= 'Dart-Lernender';
+
+  // late verspricht eine Initialisierung vor dem ersten Lesen.
+  late final String kurs;
+  kurs = 'Dart-Grundlagen';
+
+  print('$ganzeZahl, $kommazahl, $beliebigeZahl, $sprache, $istBereit');
+  print('$abgeleiteterText, $flexiblerWert, $aktuellesJahr');
+  print('$sekundenProMinute, $anzeigename, $spitzname, $kurs');
+
+  ganzeZahl = 43;
+  kommazahl = math.pi;
+  beliebigeZahl = 2.5;
+  sprache = 'Dart 3';
+  istBereit = false;
+  print('$ganzeZahl, $kommazahl, $beliebigeZahl, $sprache, $istBereit');
+}
+
+void _operatorenUndKontrollfluss() {
+  _abschnitt('Operatoren und Kontrollfluss');
 
   const a = 8;
   const b = 5;
-  print('+ ${a + b}, - ${a - b}, * ${a * b}, / ${a / b}');
-  print('~/ ${a ~/ b}, % ${a % b}');
-  print('== ${a == b}, != ${a != b}, > ${a > b}');
-  print('&& ${a > 0 && b > 0}, || ${a == 0 || b > 0}, ! ${!(a == b)}');
-  print(_weatherAdvice(24));
-  print(_grade(92));
+  print('Addition: ${a + b}, Subtraktion: ${a - b}');
+  print('Multiplikation: ${a * b}, Division: ${a / b}');
+  print('Ganzzahldivision: ${a ~/ b}, Rest: ${a % b}');
+  print('Vergleich: ${a == b}, ${a != b}, ${a > b}, ${a <= b}');
+  print('Logik: ${a > 0 && b > 0}, ${a == 0 || b > 0}, ${!(a == b)}');
 
-  _section(
-    'Strings und Umwandlung',
-    'Strings and conversion',
-    'Низове и преобразуване',
-  );
+  var zaehler = 10;
+  print('Post-Inkrement: ${zaehler++}, danach: $zaehler');
+  print('Pre-Inkrement: ${++zaehler}');
+  zaehler += 5;
+  print('Nach += 5: $zaehler');
 
-  const firstName = 'Ada';
-  const lastName = 'Lovelace';
-  final fullName = '$firstName $lastName';
-  print('$fullName, ${fullName.length}, ${fullName.toUpperCase()}');
-  print(
-    '${int.parse('42')}, ${int.tryParse('x')}, ${math.pi.toStringAsFixed(2)}',
-  );
+  print(_wetterHinweis(24));
+  print(_note(92));
 
-  _section(
-    'Collections und Schleifen',
-    'Collections and loops',
-    'Колекции и цикли',
-  );
+  const tag = 'Samstag';
+  final tagestyp = switch (tag) {
+    'Samstag' || 'Sonntag' => 'Wochenende',
+    _ => 'Werktag',
+  };
+  print('$tag ist ein $tagestyp.');
 
-  final numbers = <int>[1, 2, 3, 4, 5];
-  numbers.add(6);
-  final evenSquares = numbers
-      .where((number) => number.isEven)
-      .map((number) => number * number)
+  const alter = 20;
+  print(alter >= 18 ? 'Volljährig' : 'Minderjährig');
+}
+
+String _wetterHinweis(int temperatur) {
+  if (temperatur > 20) {
+    return 'T-Shirt-Wetter';
+  } else if (temperatur > 10) {
+    return 'Eine leichte Jacke reicht';
+  }
+  return 'Warme Jacke mitnehmen';
+}
+
+String _note(int punkte) => switch (punkte) {
+  >= 90 && <= 100 => 'Sehr gut',
+  >= 80 && < 90 => 'Gut',
+  >= 70 && < 80 => 'Befriedigend',
+  >= 60 && < 70 => 'Ausreichend',
+  >= 0 && < 60 => 'Nicht bestanden',
+  _ => 'Ungültige Punktzahl',
+};
+
+void _stringsUndKonvertierung() {
+  _abschnitt('Strings, Zahlen und Konvertierung');
+
+  const vorname = 'Ada';
+  const nachname = 'Lovelace';
+  final vollerName = '$vorname $nachname';
+  final mehrzeilig = '''
+Mehrzeilige Strings
+sind mit drei Anführungszeichen möglich.
+''';
+
+  print('$vollerName (${vollerName.length} Zeichen)');
+  print(vollerName.toUpperCase());
+  print('Dart'.contains('art'));
+  print(mehrzeilig.trim());
+  print(int.parse('42'));
+  print(int.tryParse('keine Zahl')); // null statt Ausnahme
+  print(math.pi.toStringAsFixed(3));
+
+  final puffer = StringBuffer()
+    ..write('Dart ')
+    ..write('ist ')
+    ..write('produktiv.');
+  print(puffer);
+}
+
+void _collectionsUndSchleifen() {
+  _abschnitt('Collections und Schleifen');
+
+  final zahlen = <int>[1, 2, 3, 4, 5];
+  zahlen
+    ..add(6)
+    ..remove(1);
+
+  final geradeQuadrate = zahlen
+      .where((zahl) => zahl.isEven)
+      .map((zahl) => zahl * zahl)
       .toList();
-  final uniqueNumbers = <int>[1, 1, 2, 3].toSet();
-  final prices = <String, double>{'apple': 0.99, 'banana': 0.49};
-  prices['banana'] = 0.59;
-  final extended = <int>[0, ...numbers, if (numbers.isNotEmpty) 7];
+  final eindeutigeZahlen = <int>[1, 1, 2, 3].toSet();
+  final preise = <String, double>{'Apfel': 0.99, 'Banane': 0.49};
+  preise['Banane'] = 0.59;
 
-  print('$numbers | $evenSquares | $uniqueNumbers | $prices | $extended');
-  for (final number in numbers) {
-    if (number.isOdd) continue;
-    print(_tr('Gerade: $number', 'Even: $number', 'Четно: $number'));
+  final erweitert = <int>[
+    0,
+    ...zahlen,
+    if (zahlen.isNotEmpty) 7,
+    for (final zahl in zahlen.take(2)) zahl * 10,
+  ];
+
+  print('List: $zahlen');
+  print('Set: $eindeutigeZahlen');
+  print('Map: $preise');
+  print('Gefiltert und transformiert: $geradeQuadrate');
+  print('Spread, collection-if und collection-for: $erweitert');
+
+  for (var index = 0; index < zahlen.length; index++) {
+    print('Index $index: ${zahlen[index]}');
+  }
+
+  for (final zahl in zahlen) {
+    if (zahl.isOdd) continue;
+    if (zahl > 4) break;
+    print('Gerade Zahl bis 4: $zahl');
   }
 
   var countdown = 3;
   while (countdown > 0) {
-    print(countdown--);
+    print('Start in ${countdown--}');
   }
 
-  _section('Funktionen', 'Functions', 'Функции');
+  var versuche = 0;
+  do {
+    versuche++;
+  } while (versuche < 1);
+  print('do-while wurde $versuche-mal ausgeführt.');
 
-  print('3 + 5 = ${add(3, 5)}');
-  print(greet('Anna'));
-  print(greet('Sam', salutation: 'Hello'));
-  print('VAT: ${grossPrice(100, vatRate: 0.19)}');
-  print('Generic: ${first<String>(['Dart', 'Flutter'])}');
+  print('Generator: ${_zaehlenBis(4).toList()}');
+}
 
-  _section(
-    'Records und Patterns',
-    'Records and patterns',
-    'Records и patterns',
-  );
+void _funktionenRecordsUndPatterns() {
+  _abschnitt('Funktionen, Records und Patterns');
 
-  final (userName, userAge) = createUser();
-  print('$userName, $userAge');
-  print(describePoint((x: 3, y: 3)));
+  print('3 + 5 = ${addieren(3, 5)}');
+  print(begruessen('Anna'));
+  print(begruessen('Sam', anrede: 'Guten Morgen'));
+  print('Bruttopreis: ${bruttopreis(100, steuersatz: 0.19)}');
 
-  final command = <String>['move', '10', '20'];
-  switch (command) {
-    case ['move', final x, final y]:
-      print('x=$x, y=$y');
+  final quadrat = (int zahl) => zahl * zahl;
+  print('Quadrat von 4: ${quadrat(4)}');
+  print('Generische Funktion: ${erstesElement<String>(['Dart', 'Flutter'])}');
+
+  final (name, alter) = benutzerErstellen();
+  print('Record: $name, $alter');
+  print(_punktBeschreiben((x: 3, y: 3)));
+
+  final befehl = <String>['bewegen', '10', '20'];
+  switch (befehl) {
+    case ['bewegen', final x, final y]:
+      print('Bewege zu x=$x, y=$y.');
     default:
-      print(_tr('Unbekannter Befehl', 'Unknown command', 'Непозната команда'));
+      print('Unbekannter Befehl');
   }
 
-  _section('Fehlerbehandlung', 'Error handling', 'Обработка на грешки');
+  assert(addieren(2, 3) == 5);
+}
+
+int addieren(int links, int rechts) => links + rechts;
+
+String begruessen(String name, {String anrede = 'Hallo'}) {
+  return '$anrede, $name!';
+}
+
+double bruttopreis(double netto, {required double steuersatz}) {
+  return netto * (1 + steuersatz);
+}
+
+T erstesElement<T>(List<T> werte) => werte.first;
+
+(String, int) benutzerErstellen() => ('Ada', 36);
+
+String _punktBeschreiben(({int x, int y}) punkt) => switch (punkt) {
+  (x: 0, y: 0) => 'Koordinatenursprung',
+  (x: final x, y: final y) when x == y => 'Punkt auf der Diagonale',
+  _ => 'Anderer Punkt',
+};
+
+Iterable<int> _zaehlenBis(int maximum) sync* {
+  for (var wert = 1; wert <= maximum; wert++) {
+    yield wert;
+  }
+}
+
+void _fehlerbehandlung() {
+  _abschnitt('Fehlerbehandlung');
 
   try {
     print(int.parse('12x'));
-  } on FormatException catch (error) {
-    print(
-      _tr(
-        'Ungültige Zahl: ${error.source}',
-        'Invalid number: ${error.source}',
-        'Невалидно число: ${error.source}',
-      ),
-    );
+  } on FormatException catch (fehler, stacktrace) {
+    print('Ungültige Zahl: ${fehler.source}');
+    print('Stacktrace vorhanden: ${stacktrace.toString().isNotEmpty}');
   } finally {
-    print(_tr('Versuch beendet', 'Attempt finished', 'Опитът приключи'));
+    print('Der Parse-Versuch ist beendet.');
   }
 
-  _section(
-    'Objektorientierung',
-    'Object-oriented programming',
-    'Обектно-ориентирано програмиране',
-  );
+  try {
+    print(_sicherTeilen(10, 0));
+  } on ArgumentError catch (fehler) {
+    print('Fehler: ${fehler.message}');
+  }
+}
 
-  final person = Person(name: 'Anna', age: 25)..birthday();
-  final Shape circle = Circle(2);
+double _sicherTeilen(num dividend, num divisor) {
+  if (divisor == 0) {
+    throw ArgumentError('Division durch null');
+  }
+  return dividend / divisor;
+}
+
+void _objektorientierung() {
+  _abschnitt('Objektorientierte Programmierung');
+
+  final person = Person(name: 'Anna', age: 25)
+    ..birthday()
+    ..birthday();
+  final gast = Person.guest();
+  final Shape kreis = Circle(2);
   final box = Box<String>('Dart');
+  final benutzerId = UserId(7);
+
   print(person.introduction);
-  print('${circle.area.toStringAsFixed(2)}, ${box.value}');
-  print(TrafficLight.green.instruction);
+  print(gast.introduction);
+  print('Kreisfläche: ${kreis.area.toStringAsFixed(2)}');
+  print('Generische Box: ${box.value}');
+  print('Ampel: ${TrafficLight.green.instruction}');
+  print('Extension: ${'dart'.grossgeschrieben}');
+  print('Extension Type: ${benutzerId.value}');
 
-  _section('Asynchronität', 'Asynchrony', 'Асинхронност');
-
-  print(await loadMessage());
-  await for (final value in countStream(3)) {
-    print(_tr('Stream: $value', 'Stream: $value', 'Поток: $value'));
+  final ergebnisse = <OperationResult<int>>[
+    Success(42),
+    const Failure('Nicht verfügbar'),
+  ];
+  for (final ergebnis in ergebnisse) {
+    print(_ergebnisText(ergebnis));
   }
+
+  final json = person.toJson();
+  print('JSON: ${jsonEncode(json)}');
+  print('Aus JSON: ${Person.fromJson(json).introduction}');
 }
 
-// DE: Positionsparameter und Kurzsyntax
-// EN: Positional parameters and arrow syntax
-// BG: Позиционни параметри и кратък синтаксис
-int add(int left, int right) => left + right;
-
-// DE: Benannter optionaler Parameter
-// EN: Named optional parameter
-// BG: Именуван незадължителен параметър
-String greet(String name, {String salutation = 'Hallo'}) {
-  return '$salutation, $name!';
-}
-
-double grossPrice(double netPrice, {required double vatRate}) {
-  return netPrice * (1 + vatRate);
-}
-
-T first<T>(List<T> values) => values.first;
-
-(String, int) createUser() => ('Ada', 36);
-
-String describePoint(({int x, int y}) point) => switch (point) {
-  (x: 0, y: 0) => _tr('Ursprung', 'Origin', 'Координатно начало'),
-  (x: final x, y: final y) when x == y => _tr(
-    'Diagonale',
-    'Diagonal',
-    'Диагонал',
-  ),
-  _ => _tr('Anderer Punkt', 'Other point', 'Друга точка'),
-};
-
-String _weatherAdvice(int temperature) {
-  if (temperature > 20) {
-    return _tr('T-Shirt-Wetter', 'T-shirt weather', 'Време за тениска');
-  }
-  return _tr('Jacke mitnehmen', 'Take a jacket', 'Вземи яке');
-}
-
-String _grade(int score) => switch (score) {
-  >= 90 && <= 100 => _tr('Sehr gut', 'Excellent', 'Отличен'),
-  >= 60 && < 90 => _tr('Bestanden', 'Passed', 'Издържал'),
-  >= 0 && < 60 => _tr('Nicht bestanden', 'Failed', 'Неиздържал'),
-  _ => _tr('Ungültig', 'Invalid', 'Невалидно'),
-};
-
-class Person {
+class Person with CreatedAt {
   Person({required this.name, required this.age});
+
+  Person.guest() : name = 'Gast', age = 0;
+
+  factory Person.fromJson(Map<String, Object?> json) {
+    return Person(name: json['name'] as String, age: json['age'] as int);
+  }
 
   final String name;
   int age;
 
   void birthday() => age++;
 
-  String get introduction => _tr(
-    'Ich bin $name und $age Jahre alt.',
-    'I am $name and I am $age years old.',
-    'Аз съм $name и съм на $age години.',
-  );
+  String get introduction => 'Ich bin $name und $age Jahre alt.';
+
+  Map<String, Object?> toJson() => {'name': name, 'age': age};
 }
 
-abstract class Shape {
+mixin CreatedAt {
+  final DateTime createdAt = DateTime.now();
+}
+
+abstract interface class Shape {
   double get area;
 }
 
-class Circle extends Shape {
-  Circle(this.radius);
+final class Circle implements Shape {
+  const Circle(this.radius);
 
   final double radius;
 
@@ -227,7 +413,7 @@ class Circle extends Shape {
 }
 
 class Box<T> {
-  Box(this.value);
+  const Box(this.value);
 
   final T value;
 }
@@ -236,27 +422,71 @@ enum TrafficLight { red, yellow, green }
 
 extension TrafficLightInstruction on TrafficLight {
   String get instruction => switch (this) {
-    TrafficLight.red => _tr('Stopp', 'Stop', 'Спри'),
-    TrafficLight.yellow => _tr('Warten', 'Wait', 'Изчакай'),
-    TrafficLight.green => _tr('Fahren', 'Go', 'Тръгни'),
+    TrafficLight.red => 'Stopp',
+    TrafficLight.yellow => 'Warten',
+    TrafficLight.green => 'Fahren',
   };
 }
 
-Future<String> loadMessage() async {
-  await Future<void>.delayed(Duration.zero);
-  return _tr('Daten geladen', 'Data loaded', 'Данните са заредени');
-}
-
-Stream<int> countStream(int maximum) async* {
-  for (var value = 1; value <= maximum; value++) {
-    yield value;
+extension StringFormatting on String {
+  String get grossgeschrieben {
+    if (isEmpty) return this;
+    return '${this[0].toUpperCase()}${substring(1)}';
   }
 }
 
-String _tr(String german, String english, String bulgarian) {
-  return '$german | $english | $bulgarian';
+extension type const UserId(int value) {}
+
+sealed class OperationResult<T> {
+  const OperationResult();
 }
 
-void _section(String german, String english, String bulgarian) {
-  print('\n=== ${_tr(german, english, bulgarian)} ===');
+final class Success<T> extends OperationResult<T> {
+  const Success(this.value);
+
+  final T value;
+}
+
+final class Failure<T> extends OperationResult<T> {
+  const Failure(this.message);
+
+  final String message;
+}
+
+String _ergebnisText<T>(OperationResult<T> ergebnis) => switch (ergebnis) {
+  Success(value: final wert) => 'Erfolg: $wert',
+  Failure(message: final text) => 'Fehler: $text',
+};
+
+Future<void> _asynchronitaetUndParallelitaet() async {
+  _abschnitt('Asynchronität, Streams und Isolates');
+
+  print(await _nachrichtLaden());
+
+  await for (final wert in _asynchronZaehlen(3)) {
+    print('Stream-Wert: $wert');
+  }
+
+  final summe = await Isolate.run(_aufwendigeBerechnung);
+  print('Im Isolate berechnete Summe: $summe');
+}
+
+Future<String> _nachrichtLaden() async {
+  await Future<void>.delayed(Duration.zero);
+  return 'Daten wurden geladen.';
+}
+
+Stream<int> _asynchronZaehlen(int maximum) async* {
+  for (var wert = 1; wert <= maximum; wert++) {
+    await Future<void>.delayed(Duration.zero);
+    yield wert;
+  }
+}
+
+int _aufwendigeBerechnung() {
+  return List<int>.generate(1000, (index) => index).fold(0, (a, b) => a + b);
+}
+
+void _abschnitt(String titel) {
+  print('\n=== $titel ===');
 }
